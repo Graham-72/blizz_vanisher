@@ -1,0 +1,10 @@
+name = "BLIZZ Vanisher"
+description = "Lets all external scripts vanish from the DOM"
+core = "7.x"
+version = "7.x-1.0"
+package = "Privacy"
+dependencies[] = entity
+configure = admin/config/system/blizz-vanisher/settings
+files[] = src/Entity/ThirdPartyServiceEntityInterface.php
+files[] = src/Entity/ThirdPartyServiceEntity.php
+files[] = src/BlizzFactory.php
