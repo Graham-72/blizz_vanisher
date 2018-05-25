@@ -36,7 +36,7 @@ class BlizzFactory {
       $vanisher->add(new \Drupal\blizz_vanisher\Service\GoogleDoubleClickVanisher());
       $vanisher->add(new \Drupal\blizz_vanisher\Service\TwitterTimelineVanisher());
       $vanisher->add(new \Drupal\blizz_vanisher\Service\MatomoVanisher());
-      $vanisher->add(new \Drupal\blizz_vanisher\Service\GoogleMapsVanisher());
+      $vanisher->add(new \Drupal\blizz_vanisher\Service\GoogleMapsVanisher($vanisher));
 
       BlizzFactory::$thirdpartyservices = $vanisher;
     }

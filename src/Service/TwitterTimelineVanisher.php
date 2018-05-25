@@ -47,7 +47,6 @@ class TwitterTimelineVanisher extends ThirdPartyServicesVanisher implements Thir
    *
    * @return array
    *   The twitter timeline links.
-   *
    */
   protected function getTwitterLink($html) {
     $matches = $this->getATags($html);

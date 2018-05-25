@@ -417,7 +417,7 @@ function third_party_service_load($id, $reset = FALSE) {
 }
 
 /**
- * Yet another FAPI form
+ * Yet another FAPI form.
  */
 function blizz_vanisher_settings_page() {
   $form = array();
@@ -495,7 +495,7 @@ function blizz_vanisher_entity_info() {
         "name" => "name",
         "info" => "info",
         "enabled" => "enabled",
-        "vanisher" => "vanisher"
+        "vanisher" => "vanisher",
       ),
       'fieldable' => FALSE,
       'metadata controller class' => FALSE,
