@@ -412,6 +412,9 @@ var tarteaucitron = {
             html += '<div id="' + service.key + 'Line" class="tarteaucitronLine">';
             html += '   <div class="tarteaucitronName">';
             html += '       <b>' + service.name + '</b><br/>';
+            if (service.description !== undefined) {
+              html += '       <span class="tarteaucitronDescription">' + service.description + '</span><br/>';
+            }
             html += '       <span id="tacCL' + service.key + '" class="tarteaucitronListCookies"></span><br/>';
             html += '       <a href="https://opt-out.ferank.eu/service/' + service.key + '/" target="_blank" rel="noopener">';
             html += '           ' + tarteaucitron.lang.more;

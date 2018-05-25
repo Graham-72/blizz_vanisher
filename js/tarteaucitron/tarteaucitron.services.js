@@ -937,6 +937,7 @@ tarteaucitron.services.googletagmanager = {
     "key": "googletagmanager",
     "type": "api",
     "name": "Google Tag Manager",
+    "description": "Dies betrifft z.B. Tracking-Tools wie Google Analytics, Facebook Zählpixel, IVW-Pixel, Twitter, u.ä.",
     "uri": "http://www.google.com/ads/preferences/",
     "needConsent": true,
     "cookies": ['_ga', '_gat', '__utma', '__utmb', '__utmc', '__utmt', '__utmz', '__gads', '_drt_', 'FLC', 'exchange_uid', 'id', 'fc', 'rrs', 'rds', 'rv', 'uid', 'UIDR', 'UID', 'clid', 'ipinfo', 'acs'],
