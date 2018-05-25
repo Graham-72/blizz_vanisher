@@ -22,6 +22,7 @@ class BlizzFactory {
       require_once('Service/HotjarVanisher.php');
 
       require_once('Service/GoogleDoubleClickVanisher.php');
+      require_once('Service/GoogleMapsVanisher.php');
 
 
       $vanisher = new \Drupal\blizz_vanisher\Service\ThirdPartyServicesVanisher();
@@ -32,6 +33,7 @@ class BlizzFactory {
       $vanisher->add(new \Drupal\blizz_vanisher\Service\GoogleTagManagerVanisher());
       $vanisher->add(new \Drupal\blizz_vanisher\Service\HotjarVanisher());
       $vanisher->add(new \Drupal\blizz_vanisher\Service\GoogleDoubleClickVanisher());
+      $vanisher->add(new \Drupal\blizz_vanisher\Service\GoogleMapsVanisher($vanisher));
 
       BlizzFactory::$thirdpartyservices = $vanisher;
     }
