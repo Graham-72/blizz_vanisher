@@ -15,6 +15,7 @@ class BlizzFactory {
       require_once('Service/VimeoVanisher.php');
       require_once('Service/YoutubeVanisher.php');
 
+      require_once('Service/GoogleMapsVanisher.php');
 
       require_once('Service/GoogleAnalyticsVanisher.php');
       require_once('Service/GoogleTagManagerVanisher.php');
@@ -22,8 +23,8 @@ class BlizzFactory {
       require_once('Service/HotjarVanisher.php');
 
       require_once('Service/GoogleDoubleClickVanisher.php');
-      require_once('Service/GoogleMapsVanisher.php');
-
+      require_once('Service/TwitterTimelineVanisher.php');
+      require_once('Service/MatomoVanisher.php');
 
       $vanisher = new \Drupal\blizz_vanisher\Service\ThirdPartyServicesVanisher();
 
@@ -33,7 +34,9 @@ class BlizzFactory {
       $vanisher->add(new \Drupal\blizz_vanisher\Service\GoogleTagManagerVanisher());
       $vanisher->add(new \Drupal\blizz_vanisher\Service\HotjarVanisher());
       $vanisher->add(new \Drupal\blizz_vanisher\Service\GoogleDoubleClickVanisher());
-      $vanisher->add(new \Drupal\blizz_vanisher\Service\GoogleMapsVanisher($vanisher));
+      $vanisher->add(new \Drupal\blizz_vanisher\Service\TwitterTimelineVanisher());
+      $vanisher->add(new \Drupal\blizz_vanisher\Service\MatomoVanisher());
+      $vanisher->add(new \Drupal\blizz_vanisher\Service\GoogleMapsVanisher());
 
       BlizzFactory::$thirdpartyservices = $vanisher;
     }

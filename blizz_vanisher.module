@@ -111,7 +111,7 @@ function blizz_vanisher_library() {
 /**
  * Implements hook_permission().
  */
-function example_task_permission() {
+function blizz_vanisher_permission() {
   $permissions = array(
     'administer blizz vanisher' => array(
       'title' => t('Administer task types'),
@@ -512,3 +512,20 @@ function blizz_vanisher_default_third_party_service() {
   return array();
 }
 
+/**
+ * Implements hook_js_alter().
+ */
+function blizz_vanisher_js_alter(&$js) {
+  $base = drupal_get_path('module', 'blizz_vanisher');
+  foreach ($js as $path => &$values) {
+
+    if (
+      isset($values['data']) &&
+      is_string($values['data']) &&
+      (strpos($values['data'], $base . '/js/tarteaucitron/tarteaucitron.js') !== FALSE ||
+        strpos($values['data'], $base . '/js/init_tarteaucitron.js') !== FALSE ||
+        strpos($values['data'], $base . '/js/tarteaucitron/tarteaucitron.services.js') !== FALSE)) {
+      $values['preprocess'] = FALSE;
+    }
+  }
+}

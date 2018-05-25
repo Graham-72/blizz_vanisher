@@ -47,12 +47,7 @@ class ThirdPartyServicesVanisher {
       $news_items_nids = array_keys($result['third_party_service']);
       $services = entity_load('third_party_service', $news_items_nids);
     }
-
-    /* $services = $this
-       ->entityTypeManager
-       ->getStorage('third_party_service')
-       ->loadByProperties(['enabled' => TRUE]);
- */
+    
    
     foreach ($services as $service) {
       // Check if the vanisher configured to use exists.
