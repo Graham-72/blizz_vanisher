@@ -23,8 +23,10 @@ class TwitterTimelineVanisher extends ThirdPartyServicesVanisher implements Thir
 
     $twitter_links = $this->getTwitterLink($content);
     foreach ($twitter_links as $links) {
-      $content = str_replace($links, '<span class="tacTwitterTimelines"></span>'.$links, $content);
+      $content = str_replace($links, '<span class="tacTwitterTimelines"></span>' . $links, $content);
     }
+
+
     $replaced_scripts[] = $this->getReplacementScript();
     return implode("\n", $replaced_scripts);
   }

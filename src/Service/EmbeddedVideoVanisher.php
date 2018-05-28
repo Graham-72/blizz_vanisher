@@ -9,7 +9,7 @@ use Drupal\blizz_vanisher\Entity\ThirdPartyServiceEntityInterface;
  *
  * @package Drupal\blizz_vanisher\Service
  */
-abstract class EmbeddedVideoVanisher extends IframeVanisher {
+abstract class EmbeddedVideoVanisher extends IframeVanisher implements IframeVanisherInterface {
 
   /**
    * {@inheritdoc}
@@ -45,7 +45,7 @@ abstract class EmbeddedVideoVanisher extends IframeVanisher {
     $data = [];
     $matches = [];
 
-    $ret = preg_match_all(IframeVanisher::FIND_MARKUP_ATTRIBUTES_REGEX, $markup, $matches);
+    $ret = preg_match_all(ThirdPartyServicesVanisher::FIND_MARKUP_ATTRIBUTES_REGEX, $markup, $matches);
     if ($ret !== FALSE && $ret > 0) {
       $data = array_combine($matches[1], $matches[4]);
 

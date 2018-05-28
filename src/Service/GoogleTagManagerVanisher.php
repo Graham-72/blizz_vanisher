@@ -13,7 +13,7 @@ class GoogleTagManagerVanisher extends ThirdPartyServicesVanisher implements Thi
    * {@inheritdoc}
    */
   public function vanish(&$content) {
-    $replaced_scripts = array();
+    $replaced_scripts = [];
 
     $scripts = $this->getScripts('googletagmanager.com/gtm.js', $this->getAllScripts($content));
     foreach ($scripts as $script) {
@@ -26,6 +26,8 @@ class GoogleTagManagerVanisher extends ThirdPartyServicesVanisher implements Thi
         $content = $this->removeScript($script, $content);
       }
     }
+
+    $replaced_scripts[] = '(tarteaucitron.job = tarteaucitron.job || []).push(\'googletagmanager\');';
 
     return implode("\n", $replaced_scripts);
   }
@@ -40,8 +42,7 @@ class GoogleTagManagerVanisher extends ThirdPartyServicesVanisher implements Thi
    *   The replacement script.
    */
   public function getReplacementScript($gtm_id) {
-    return 'tarteaucitron.user.googletagmanagerId = \'' . $gtm_id . '\';
-        (tarteaucitron.job = tarteaucitron.job || []).push(\'googletagmanager\');';
+    return 'tarteaucitron.user.googletagmanagerId = \'' . $gtm_id . '\';';
   }
 
   /**

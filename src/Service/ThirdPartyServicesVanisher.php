@@ -3,7 +3,6 @@
 namespace Drupal\blizz_vanisher\Service;
 
 use Drupal\blizz_vanisher\Entity\ThirdPartyServiceEntityInterface;
-use Drupal\Core\Entity\EntityTypeManagerInterface;
 
 /**
  * Class ThirdPartyServicesVanisher.
@@ -11,6 +10,8 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
  * @package Drupal\blizz_vanisher\Service
  */
 class ThirdPartyServicesVanisher {
+
+  const FIND_MARKUP_ATTRIBUTES_REGEX = '~([a-z][a-z0-9\-_]*)(=([\'"])([^\3]*?)\3)?~is';
 
   /**
    * The registered third party services vanisher.
@@ -47,8 +48,8 @@ class ThirdPartyServicesVanisher {
       $news_items_nids = array_keys($result['third_party_service']);
       $services = entity_load('third_party_service', $news_items_nids);
     }
-    
-   
+
+
     foreach ($services as $service) {
       // Check if the vanisher configured to use exists.
       if (!$this->hasVanisher($service->getVanisher())) {
@@ -145,10 +146,13 @@ class ThirdPartyServicesVanisher {
    *   The detected scripts.
    */
   protected function getAllScripts($html) {
-    $scripts = [];
-    preg_match_all('/<script.*?>.*?<\/script>/s', $html, $scripts);
+    $matches = [];
+    $ret = preg_match_all('~(<script.*?>.*?<\/script>)~is', $html, $matches);
+    if ($ret !== FALSE && $ret > 0) {
+      return $matches[1];
+    }
 
-    return reset($scripts);
+    return [];
   }
 
   /**
@@ -164,6 +168,26 @@ class ThirdPartyServicesVanisher {
    */
   protected function removeScript($script, $content) {
     return str_replace($script, '', $content);
+  }
+
+  /**
+   * Removes a string by a regular expression pattern.
+   *
+   * @param string $pattern
+   *   The regular expression pattern.
+   * @param string $content
+   *   The content to remove the string from.
+   *
+   * @return string
+   *   The replaced content.
+   */
+  protected function removeByRegex($pattern, $content) {
+    $ret = preg_replace($pattern, '', $content);
+    if ($ret) {
+      return $ret;
+    }
+
+    return $content;
   }
 
   /**

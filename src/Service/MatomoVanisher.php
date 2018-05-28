@@ -13,7 +13,7 @@ class MatomoVanisher extends ThirdPartyServicesVanisher implements ThirdPartySer
    * {@inheritdoc}
    */
   public function vanish(&$content) {
-    $replaced_script = NULL;
+    $replaced_script = [];
     $script = $this->getScript('piwik.php', $this->getAllScripts($content));
 
     if ($script) {
@@ -30,7 +30,9 @@ class MatomoVanisher extends ThirdPartyServicesVanisher implements ThirdPartySer
       }
     }
 
-    return $replaced_script;
+    $replaced_script[] = '(tarteaucitron.job = tarteaucitron.job || []).push(\'matomo\');';
+
+    return implode("\n", $replaced_script);
   }
 
   /**
@@ -68,7 +70,6 @@ class MatomoVanisher extends ThirdPartyServicesVanisher implements ThirdPartySer
     return <<< EOF
 tarteaucitron.user.matomoId = '{$data['matomo_id']}';
     tarteaucitron.user.matomoHost = '{$data['matomo_host']}';
-        (tarteaucitron.job = tarteaucitron.job || []).push('matomo');
 EOF;
   }
 

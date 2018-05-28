@@ -9,9 +9,14 @@ use Drupal\blizz_vanisher\Entity\ThirdPartyServiceEntityInterface;
  *
  * @package Drupal\blizz_vanisher\Service
  */
-abstract class IframeVanisher implements ThirdPartyServicesVanisherInterface {
+abstract class IframeVanisher implements ThirdPartyServicesVanisherInterface, IframeVanisherInterface {
 
-  const FIND_MARKUP_ATTRIBUTES_REGEX = '~([a-z][a-z0-9\-_]*)(=([\'"])([^\3]*?)\3)?~is';
+  /**
+   * An array with replacement scripts.
+   *
+   * @var array
+   */
+  protected $replacementScripts = [];
 
   /**
    * The third party services vanisher.
@@ -44,8 +49,8 @@ abstract class IframeVanisher implements ThirdPartyServicesVanisherInterface {
    * @return string
    *   The name of the iframe.
    */
-  protected function getIframeName(){
-    return '';
+  public function getIframeName() {
+    return 'iframe';
   }
 
   /**
@@ -54,7 +59,7 @@ abstract class IframeVanisher implements ThirdPartyServicesVanisherInterface {
    * @return string
    *   The privacy url.
    */
-  protected function getIframePrivacyUrl() {
+  public function getIframePrivacyUrl() {
     return '';
   }
 
@@ -64,7 +69,7 @@ abstract class IframeVanisher implements ThirdPartyServicesVanisherInterface {
    * @return array
    *   The cookies.
    */
-  protected function getIframeCookies() {
+  public function getIframeCookies() {
     return [];
   }
 
@@ -81,7 +86,7 @@ abstract class IframeVanisher implements ThirdPartyServicesVanisherInterface {
     $data = [];
     $matches = [];
 
-    $ret = preg_match_all(IframeVanisher::FIND_MARKUP_ATTRIBUTES_REGEX, $iframe, $matches);
+    $ret = preg_match_all(ThirdPartyServicesVanisher::FIND_MARKUP_ATTRIBUTES_REGEX, $iframe, $matches);
     if ($ret !== FALSE && $ret > 0) {
       $data = array_combine($matches[1], $matches[4]);
 
@@ -95,8 +100,6 @@ abstract class IframeVanisher implements ThirdPartyServicesVanisherInterface {
    * {@inheritdoc}
    */
   public function vanish(&$content) {
-    $replacement_scripts = [];
-
     $iframes = $this->vanisher->findInContent($this->getIframeSearchRegexPattern(), $content);
 
     foreach ($iframes as $iframe) {
@@ -107,11 +110,11 @@ abstract class IframeVanisher implements ThirdPartyServicesVanisherInterface {
 
       // Replace the iframe with the new markup.
       $content = str_replace($iframe, $replacement_markup, $content);
-
-      $replacement_scripts[] = $this->getReplacementScript();
     }
 
-    return implode("\n", $replacement_scripts);
+    $this->replacementScripts[] = $this->getReplacementScript();
+
+    return implode("\n", $this->replacementScripts);
   }
 
   /**
@@ -132,7 +135,7 @@ var tarteaucitron_interval = setInterval(function() {
             tarteaucitron.services.iframe.uri = '{$this->getIframePrivacyUrl()}';
             tarteaucitron.services.iframe.cookies = {$this->createCookiesString($this->getIframeCookies())};
         }, 10);
-        (tarteaucitron.job = tarteaucitron.job || []).push('iframe');
+        (tarteaucitron.job = tarteaucitron.job || []).push('{$this->getIframeName()}');
 EOF;
   }
 

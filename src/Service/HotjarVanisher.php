@@ -13,7 +13,7 @@ class HotjarVanisher extends ThirdPartyServicesVanisher implements ThirdPartySer
    * {@inheritdoc}
    */
   public function vanish(&$content) {
-    $replaced_script = NULL;
+    $replacement_scripts = [];
     $script = $this->getScript('window,document,\'https://static.hotjar.com/c/hotjar-\'', $this->getAllScripts($content));
 
     if ($script) {
@@ -21,14 +21,15 @@ class HotjarVanisher extends ThirdPartyServicesVanisher implements ThirdPartySer
       $hjid = $this->getHjid($script);
 
       if ($hjsv && $hjid) {
-        $replaced_script = $this->getReplacementScript($hjsv, $hjid);
+        $replacement_scripts[] = $this->getReplacementScript($hjsv, $hjid);
 
         // Remove the original script.
         $content = $this->removeScript($script, $content);
       }
     }
+    $replacement_scripts[] = '(tarteaucitron.job = tarteaucitron.job || []).push(\'hotjar\');';
 
-    return $replaced_script;
+    return implode("\n", $replacement_scripts);
   }
 
   /**
@@ -42,8 +43,7 @@ class HotjarVanisher extends ThirdPartyServicesVanisher implements ThirdPartySer
    */
   public function getReplacementScript($hjsv , $hjid) {
     return 'tarteaucitron.user.hotjarId = \'' . $hjid . '\';
-    tarteaucitron.user.hotjarsv = \'' . $hjsv . '\';
-        (tarteaucitron.job = tarteaucitron.job || []).push(\'hotjar\');';
+    tarteaucitron.user.hotjarsv = \'' . $hjsv . '\';';
   }
 
   /**

@@ -10,20 +10,13 @@ namespace Drupal\blizz_vanisher\Service;
 class GoogleAnalyticsVanisher extends ThirdPartyServicesVanisher implements ThirdPartyServicesVanisherInterface {
 
   const REPLACE_SCRIPT = 'tarteaucitron.user.gajsUa = \'UA-XXXXXXXX-X\';
-        tarteaucitron.user.gajsMore = function () { /* add here your optionnal _ga.push() */ };
-        (tarteaucitron.job = tarteaucitron.job || []).push(\'gajs\');';
-
-  /**
-   * GoogleAnalyticsVanisher constructor.
-   */
-  public function __construct() {
-  }
+        tarteaucitron.user.gajsMore = function () { /* add here your optionnal _ga.push() */ };';
 
   /**
    * {@inheritdoc}
    */
   public function vanish(&$content) {
-    $replace_script = NULL;
+    $replacement_script = [];
 
     $script = $this->getScript('GoogleAnalyticsObject', $this->getAllScripts($content));
     if ($script) {
@@ -32,10 +25,12 @@ class GoogleAnalyticsVanisher extends ThirdPartyServicesVanisher implements Thir
       // Remove the original script.
       $content = $this->removeScript($script, $content);
 
-      $replace_script = str_replace('UA-XXXXXXXX-X', $account_id, self::REPLACE_SCRIPT);
+      $replacement_script[] = str_replace('UA-XXXXXXXX-X', $account_id, self::REPLACE_SCRIPT);
     }
 
-    return $replace_script;
+    $replacement_script[] = '(tarteaucitron.job = tarteaucitron.job || []).push(\'gajs\');';
+
+    return implode("\n", $replacement_script);
   }
 
   /**
