@@ -6,25 +6,25 @@ class BlizzFactory {
 
   public function createThirdPartyServicesVanisher() {
     if (BlizzFactory::$thirdpartyservices == NULL) {
-
-      require_once('Service/ThirdPartyServicesVanisher.php');
       require_once('Service/ThirdPartyServicesVanisherInterface.php');
+      require_once('Service/IframeVanisherInterface.php');
       require_once('Service/IframeVanisher.php');
+      require_once('Service/ThirdPartyServicesVanisher.php');
       require_once('Service/EmbeddedVideoVanisher.php');
-
+      require_once('Service/FacebookCommentsVanisher.php');
+      require_once('Service/FacebookFriendboxVanisher.php');
+      require_once('Service/FacebookLikesVanisher.php');
+      require_once('Service/GoogleAnalyticsVanisher.php');
+      require_once('Service/GoogleDoubleClickVanisher.php');
+      require_once('Service/GoogleMapsVanisher.php');
+      require_once('Service/GoogleTagManagerVanisher.php');
+      require_once('Service/GpsiesVanisher.php');
+      require_once('Service/HotjarVanisher.php');
+      require_once('Service/MatomoVanisher.php');
+      require_once('Service/TwitterTimelineVanisher.php');
       require_once('Service/VimeoVanisher.php');
       require_once('Service/YoutubeVanisher.php');
 
-      require_once('Service/GoogleMapsVanisher.php');
-
-      require_once('Service/GoogleAnalyticsVanisher.php');
-      require_once('Service/GoogleTagManagerVanisher.php');
-
-      require_once('Service/HotjarVanisher.php');
-
-      require_once('Service/GoogleDoubleClickVanisher.php');
-      require_once('Service/TwitterTimelineVanisher.php');
-      require_once('Service/MatomoVanisher.php');
 
       $vanisher = new \Drupal\blizz_vanisher\Service\ThirdPartyServicesVanisher();
 
