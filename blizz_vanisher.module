@@ -90,18 +90,23 @@ function blizz_vanisher_library() {
       drupal_get_path('module', 'blizz_vanisher') . '/js/tarteaucitron/tarteaucitron.js' => array(
         'type' => 'file',
         'scope' => 'footer',
-        'weight' => -3
+        'weight' => -4,
       ),
       drupal_get_path('module', 'blizz_vanisher') . '/js/init_tarteaucitron.js' => array(
         'type' => 'file',
         'scope' => 'footer',
-        'weight' => -2
+        'weight' => -3,
       ),
       drupal_get_path('module', 'blizz_vanisher') . '/js/tarteaucitron/tarteaucitron.services.js' => array(
         'type' => 'file',
         'scope' => 'footer',
-        'weight' => -1
-      )
+        'weight' => -2,
+      ),
+      drupal_get_path('module', 'blizz_vanisher') . '/js/extended_services.js' => array(
+        'type' => 'file',
+        'scope' => 'footer',
+        'weight' => -1,
+      ),
     ),
 
   );
