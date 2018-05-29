@@ -80,7 +80,7 @@ class TwitterTimelineVanisher extends ThirdPartyServicesVanisher implements Thir
    *   The detected scripts.
    */
   protected function getATags($html) {
-    $scripts = [];
+    $scripts = array();
     preg_match_all('/<a.*?>.*?<\/a>/s', $html, $scripts);
 
     return reset($scripts);

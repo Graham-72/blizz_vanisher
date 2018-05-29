@@ -57,7 +57,7 @@ class VimeoVanisher extends EmbeddedVideoVanisher {
    *   The video id or NULL.
    */
   protected function extractVideoId($url) {
-    $matches = [];
+    $matches = array();
     $ret = preg_match(self::VIMEO_VIDEO_ID_REGEX, $url, $matches);
     if ($ret != FALSE && $ret == 1) {
       return $matches[3];

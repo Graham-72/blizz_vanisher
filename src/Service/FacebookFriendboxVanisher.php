@@ -45,10 +45,10 @@ class FacebookFriendboxVanisher extends ThirdPartyServicesVanisher implements Th
     // Get all divs.
     $divs = $this->findInContent('~<div.*?>.*?</div>~is', $content);
 
-    $likeboxes = [];
+    $likeboxes = array();
     foreach ($divs as $div) {
       $likebox = $this->findInContent(self::FIND_FB_FRIEND_BOX_REGEX, $div);
-      if ($likebox != []) {
+      if ($likebox != array()) {
         $likeboxes[] = $likebox[0];
       }
     }
@@ -60,7 +60,7 @@ class FacebookFriendboxVanisher extends ThirdPartyServicesVanisher implements Th
    * {@inheritdoc}
    */
   public function findInContent($pattern, $content) {
-    $matches = [];
+    $matches = array();
     $ret = preg_match_all($pattern, $content, $matches);
     if ($ret !== FALSE && $ret > 0) {
       return $matches[0];

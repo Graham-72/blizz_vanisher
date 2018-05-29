@@ -13,7 +13,7 @@ class HotjarVanisher extends ThirdPartyServicesVanisher implements ThirdPartySer
    * {@inheritdoc}
    */
   public function vanish(&$content) {
-    $replacement_scripts = [];
+    $replacement_scripts = array();
     $script = $this->getScript('window,document,\'https://static.hotjar.com/c/hotjar-\'', $this->getAllScripts($content));
 
     if ($script) {
@@ -59,7 +59,7 @@ class HotjarVanisher extends ThirdPartyServicesVanisher implements ThirdPartySer
    *   When no Hotjar ID has been found.
    */
   protected function getHjid($script) {
-    $matches = [];
+    $matches = array();
     if (FALSE === preg_match("/hjid\:(.*?)\,/s", $script, $matches)) {
       throw new \Exception('Could not find google tag manager id in script.');
     }
@@ -79,7 +79,7 @@ class HotjarVanisher extends ThirdPartyServicesVanisher implements ThirdPartySer
    *   When no Hotjar SV has been found.
    */
   protected function getHjsv($script) {
-    $matches = [];
+    $matches = array();
     if (FALSE === preg_match("/hjsv\:(.*?)}/s", $script, $matches)) {
       throw new \Exception('Could not find Hotjar SV  in script.');
     }

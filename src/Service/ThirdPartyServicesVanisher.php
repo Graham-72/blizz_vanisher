@@ -32,7 +32,7 @@ class ThirdPartyServicesVanisher {
    * {@inheritdoc}
    */
   public function vanish(&$content) {
-    $scripts = [];
+    $scripts = array();
     $scripts['begin'] = '<script type="text/javascript">';
 
 
@@ -127,7 +127,7 @@ class ThirdPartyServicesVanisher {
    *   An array of the found strings.
    */
   public function findInContent($pattern, $content) {
-    $matches = [];
+    $matches = array();
     $ret = preg_match_all($pattern, $content, $matches);
     if ($ret !== FALSE && $ret > 0) {
       return $matches[1];
@@ -146,7 +146,7 @@ class ThirdPartyServicesVanisher {
    *   The detected scripts.
    */
   protected function getAllScripts($html) {
-    $matches = [];
+    $matches = array();
     $ret = preg_match_all('~(<script.*?>.*?<\/script>)~is', $html, $matches);
     if ($ret !== FALSE && $ret > 0) {
       return $matches[1];

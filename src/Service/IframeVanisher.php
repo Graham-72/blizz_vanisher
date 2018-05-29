@@ -16,7 +16,7 @@ abstract class IframeVanisher implements ThirdPartyServicesVanisherInterface, If
    *
    * @var array
    */
-  protected $replacementScripts = [];
+  protected $replacementScripts = array();
 
   /**
    * The third party services vanisher.
@@ -83,8 +83,8 @@ abstract class IframeVanisher implements ThirdPartyServicesVanisherInterface, If
    *   The data of the iframe.
    */
   protected function getIframeData($iframe) {
-    $data = [];
-    $matches = [];
+    $data = array();
+    $matches = array();
 
     $ret = preg_match_all(ThirdPartyServicesVanisher::FIND_MARKUP_ATTRIBUTES_REGEX, $iframe, $matches);
     if ($ret !== FALSE && $ret > 0) {

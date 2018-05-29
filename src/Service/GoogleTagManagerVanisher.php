@@ -13,7 +13,7 @@ class GoogleTagManagerVanisher extends ThirdPartyServicesVanisher implements Thi
    * {@inheritdoc}
    */
   public function vanish(&$content) {
-    $replaced_scripts = [];
+    $replaced_scripts = array();
 
     $scripts = $this->getScripts('googletagmanager.com/gtm.js', $this->getAllScripts($content));
     foreach ($scripts as $script) {
@@ -58,7 +58,7 @@ class GoogleTagManagerVanisher extends ThirdPartyServicesVanisher implements Thi
    *   When no google tag manager id has been found.
    */
   protected function getGtmId($script) {
-    $matches = [];
+    $matches = array();
     if (FALSE === preg_match("~'(GTM\-.*?)'~s", $script, $matches)) {
       throw new \Exception('Could not find google tag manager id in script.');
     }

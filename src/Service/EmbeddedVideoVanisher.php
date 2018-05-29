@@ -42,8 +42,8 @@ abstract class EmbeddedVideoVanisher extends IframeVanisher implements IframeVan
    *   An array with video data.
    */
   protected function getVideoData($markup) {
-    $data = [];
-    $matches = [];
+    $data = array();
+    $matches = array();
 
     $ret = preg_match_all(ThirdPartyServicesVanisher::FIND_MARKUP_ATTRIBUTES_REGEX, $markup, $matches);
     if ($ret !== FALSE && $ret > 0) {
