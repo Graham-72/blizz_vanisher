@@ -50,9 +50,9 @@ class GoogleAnalyticsVanisher extends ThirdPartyServicesVanisher implements Thir
       $data['google_analytics_cookie_domain'] : 'auto';
 
     return <<< EOF
-        tarteaucitron.user.gajsUa = '{$data['google_analytics_id']}';
+        tarteaucitron.user.analyticsUa = '{$data['google_analytics_id']}';
         tarteaucitron.user.analyticsCookieDomain = '{$ga_cookie_domain}';
-        tarteaucitron.user.gajsMore = function () { {$ga_more} };
+        tarteaucitron.user.analyticsMore = function () { {$ga_more} };
 EOF;
   }
 

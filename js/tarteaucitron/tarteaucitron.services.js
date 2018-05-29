@@ -855,11 +855,11 @@ tarteaucitron.services.analytics = {
         window.ga.l = new Date();
         
         tarteaucitron.addScript('//www.google-analytics.com/analytics.js', '', function () {
-            ga('create', tarteaucitron.user.analyticsUa, {'cookieExpires': 34128000});
-            ga('send', 'pageview');
+            ga('create', tarteaucitron.user.analyticsUa, {'cookieExpires': 34128000, 'cookieDomain': tarteaucitron.user.analyticsCookieDomain});
             if (typeof tarteaucitron.user.analyticsMore === 'function') {
                 tarteaucitron.user.analyticsMore();
             }
+            ga('send', 'pageview');
         });
     }
 };
@@ -1847,45 +1847,4 @@ tarteaucitron.services.facebookpixel = {
             tarteaucitron.user.facebookpixelMore();
         }
     }
-};
-
-// hotjar
-tarteaucitron.services.hotjar = {
-    "key": "hotjar",
-    "type": "analytic",
-    "name": "Hotjar",
-    "uri": "https://www.hotjar.com/",
-    "needConsent": true,
-    "cookies": [' _hjIncludedInSample'],
-    "js": function () {
-        "use strict";
-        (function(h,o,t,j,a,r){
-            h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
-            h._hjSettings={hjid:tarteaucitron.user.hotjarId,hjsv:tarteaucitron.user.hotjarsv};
-            a=o.getElementsByTagName('head')[0];
-            r=o.createElement('script');r.async=1;
-            r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
-            a.appendChild(r);
-        })(window,document,'//static.hotjar.com/c/hotjar-','.js?sv=');
-    }
-};
-
-tarteaucitron.services.doubleclick = {
-  "key": "doubleclick",
-  "type": "ads",
-  "name": "DoubleClick",
-  "needConsent": true,
-  "uri": "https://policies.google.com/privacy?hl=en",
-  "cookies": [''],
-  "js": function() {
-      if (tarteaucitron.user.doubleClickId === undefined) {
-          return;
-      }
-
-      var axel = Math.random() + "";
-      var a = axel * 10000000000000;
-
-      var iframe = document.createRange().createContextualFragment('<iframe src="https://' + tarteaucitron.user.doubleClickId + '.fls.doubleclick.net/activityi;src=' + tarteaucitron.user.doubleClickId + ';type=retar0;cat=homep0;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;ord=' + a + '?" width="1" height="1" frameborder="0" style="display:none">');
-      document.body.appendChild(iframe);
-  }
 };
