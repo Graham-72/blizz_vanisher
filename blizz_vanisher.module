@@ -215,13 +215,6 @@ function third_party_service_form($form, &$form_state, $entity) {
     '#value' => $entity,
   );
 
-  $form['enabled'] = [
-    '#type' => 'checkbox',
-    '#title' => t('Enable Service Control?'),
-    '#description' => t('If activated this service will be controlled with tarteaucitron.'),
-    '#default_value' => property_exists($third_party_service, 'enabled') ?  $third_party_service->isEnabled() : FALSE,
-  ];
-
   $form['name'] = [
     '#type' => 'textfield',
     '#title' => t('Name'),
@@ -229,13 +222,6 @@ function third_party_service_form($form, &$form_state, $entity) {
     '#default_value' => property_exists($third_party_service, 'name') ?  $third_party_service->getName() : '',
   ];
 
-  $form['info'] = [
-    '#type' => 'textarea',
-    '#title' => t('Info Content'),
-    '#description' => t('This content will be displayed instead until the user activates the service.'),
-    '#default_value' => property_exists($third_party_service, 'info') ?  $third_party_service->getInfo() : '',
-    '#required' => FALSE,
-  ];
   $form['vanisher'] = [
     '#type' => 'select',
     '#title' => 'Vanisher',
@@ -245,6 +231,29 @@ function third_party_service_form($form, &$form_state, $entity) {
     '#empty_value' => '',
     '#required' => TRUE,
   ];
+
+  $form['enabled'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Enable Service Control?'),
+    '#description' => t('If activated this service will be controlled with tarteaucitron.'),
+    '#default_value' => property_exists($third_party_service, 'enabled') ?  $third_party_service->isEnabled() : FALSE,
+  ];
+
+  $form['optional_fields'] = [
+    '#type' => 'fieldset',
+    '#title' => t('Optional Fields'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  ];
+
+  $form['optional_fields']['info'] = [
+    '#type' => 'textarea',
+    '#title' => t('Info Content'),
+    '#description' => t('This content will be displayed instead until the user activates the service.'),
+    '#default_value' => property_exists($third_party_service, 'info') ?  $third_party_service->getInfo() : '',
+    '#required' => FALSE,
+  ];
+
 
   $form['submit'] = array(
     '#type' => 'submit',
