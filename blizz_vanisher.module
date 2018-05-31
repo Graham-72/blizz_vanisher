@@ -18,8 +18,9 @@ function blizz_vanisher_init() {
       'adblocker' => variable_get('adblocker') === 1,
       'showAlertSmall' => variable_get('show_alert_small') === 1,
       'cookieslist' => variable_get('cookieslist') === 1,
-      'removeCredit' => variable_get('remove_credit') === 1
-    )
+      'removeCredit' => variable_get('remove_credit') === 1,
+      'defaultRejected' => variable_get('default_rejected') === 1,
+    ),
   ), 'setting');
 
 }
@@ -254,7 +255,6 @@ function third_party_service_form($form, &$form_state, $entity) {
     '#required' => FALSE,
   ];
 
-
   $form['submit'] = array(
     '#type' => 'submit',
     '#value' => t('Save'),
@@ -487,6 +487,13 @@ function blizz_vanisher_settings_page() {
     '#description' => t('Remove the credit link?'),
     '#default_value' => variable_get('remove_credit', FALSE) ? TRUE : FALSE,
   );
+
+  $form['default_rejected'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Default Rejected'),
+    '#description' => t('Should all services be rejected by default?'),
+    '#default_value' => variable_get('default_rejected', FALSE) ? TRUE : FALSE,
+  ];
 
   return system_settings_form($form);
 }
