@@ -943,15 +943,18 @@ tarteaucitron.services.googletagmanager = {
     "cookies": ['_ga', '_gat', '__utma', '__utmb', '__utmc', '__utmt', '__utmz', '__gads', '_drt_', 'FLC', 'exchange_uid', 'id', 'fc', 'rrs', 'rds', 'rv', 'uid', 'UIDR', 'UID', 'clid', 'ipinfo', 'acs'],
     "js": function () {
         "use strict";
-        if (tarteaucitron.user.googletagmanagerId === undefined) {
+        if (Array.isArray(tarteaucitron.user.googletagmanagerId) === false) {
             return;
         }
+        
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({
             'gtm.start': new Date().getTime(),
             event: 'gtm.js'
         });
-        tarteaucitron.addScript('//www.googletagmanager.com/gtm.js?id=' + tarteaucitron.user.googletagmanagerId);
+        for (var ii = 0; ii < tarteaucitron.user.googletagmanagerId.length; ii ++) {
+              tarteaucitron.addScript('//www.googletagmanager.com/gtm.js?id=' + tarteaucitron.user.googletagmanagerId[ii]);
+        }
     }
 };
 

@@ -42,7 +42,8 @@ class GoogleTagManagerVanisher extends ThirdPartyServicesVanisher implements Thi
    *   The replacement script.
    */
   public function getReplacementScript($gtm_id) {
-    return 'tarteaucitron.user.googletagmanagerId = \'' . $gtm_id . '\';';
+    return '(tarteaucitron.user.googletagmanagerId = tarteaucitron.user.googletagmanagerId || []).push(\'' . $gtm_id . '\');
+         (tarteaucitron.job = tarteaucitron.job || []).push(\'googletagmanager\');';
   }
 
   /**
