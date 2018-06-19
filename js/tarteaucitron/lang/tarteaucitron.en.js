@@ -1,8 +1,8 @@
 /*global tarteaucitron */
 tarteaucitron.lang = {
-  "adblock": "Please deactivate your adblocker! With an activated Adblocker it is not possible to personalize the privacy settings for this website.",
-  "adblock_call": "Please deactivate your adblocker! With an activated Adblocker it is not possible to personalize the privacy settings for this website.",
-  "reload": "Refresh the page",
+  "adblock": "It seems that you are using an Adblocker. With an activated Adblocker you cannot personalize the privacy settings for this website and may not be able to access all content.",
+  "adblock_call": "Please disable your Adblocker for this site and",
+  "reload": "refresh the page",
 
   "alertBigScroll": "Attention! If you use this website, for example by scrolling, you accept the use of 'cookies' by external service providers. Use the privacy settings to personalize your settings.",
   "alertBigClick": "If you continue to browse this website,",
