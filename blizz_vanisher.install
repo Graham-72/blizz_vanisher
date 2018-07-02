@@ -87,7 +87,7 @@ function blizz_vanisher_uninstall() {
  */
 function blizz_vanisher_update_7001() {
   foreach (
-    [
+    array(
       'hashtag',
       'high_privacy',
       'orientation',
@@ -96,7 +96,7 @@ function blizz_vanisher_update_7001() {
       'cookieslist',
       'remove_credit',
       'default_rejected',
-    ] as $variable
+    ) as $variable
   ) {
     if ($value = variable_get($variable)) {
       variable_set("blizz_vanisher_{$variable}", $value);
