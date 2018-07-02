@@ -12,14 +12,14 @@ function blizz_vanisher_init() {
 
   drupal_add_js(array(
     'blizz_vanisher' => array(
-      'hashtag' => variable_get('hashtag'),
-      'highPrivacy' => variable_get('high_privacy') === 1,
-      'orientation' => variable_get('orientation'),
-      'adblocker' => variable_get('adblocker') === 1,
-      'showAlertSmall' => variable_get('show_alert_small') === 1,
-      'cookieslist' => variable_get('cookieslist') === 1,
-      'removeCredit' => variable_get('remove_credit') === 1,
-      'defaultRejected' => variable_get('default_rejected') === 1,
+      'hashtag' => variable_get('blizz_vanisher_hashtag'),
+      'highPrivacy' => variable_get('blizz_vanisher_high_privacy') === 1,
+      'orientation' => variable_get('blizz_vanisher_orientation'),
+      'adblocker' => variable_get('blizz_vanisher_adblocker') === 1,
+      'showAlertSmall' => variable_get('blizz_vanisher_show_alert_small') === 1,
+      'cookieslist' => variable_get('blizz_vanisher_cookieslist') === 1,
+      'removeCredit' => variable_get('blizz_vanisher_remove_credit') === 1,
+      'defaultRejected' => variable_get('blizz_vanisher_default_rejected') === 1,
     ),
   ), 'setting');
 
@@ -435,64 +435,64 @@ function third_party_service_load($id, $reset = FALSE) {
  */
 function blizz_vanisher_settings_page() {
   $form = array();
-  $form['hashtag'] = array(
+  $form['blizz_vanisher_hashtag'] = array(
     '#type' => 'textfield',
     '#title' => t('Hashtag'),
     '#description' => t('Automatically open the panel with the hashtag.'),
-    '#default_value' => variable_get('hashtag', ''),
+    '#default_value' => variable_get('blizz_vanisher_hashtag', ''),
   );
 
-  $form['high_privacy'] = array(
+  $form['blizz_vanisher_high_privacy'] = array(
     '#type' => 'checkbox',
     '#title' => t('High Privacy'),
     '#description' => t('Disabling the auto consent feature on navigation?'),
-    '#default_value' => variable_get('high_privacy', FALSE) ? TRUE : FALSE,
+    '#default_value' => variable_get('blizz_vanisher_high_privacy', FALSE) ? TRUE : FALSE,
   );
 
-  $form['orientation'] = array(
+  $form['blizz_vanisher_orientation'] = array(
     '#type' => 'radios',
     '#title' => t('Orientation'),
     '#description' => t('The orientation of the big banner.'),
-    '#default_value' => variable_get('orientation', 'top'),
+    '#default_value' => variable_get('blizz_vanisher_orientation', 'top'),
     '#options' => array(
       'top' => t('Top'),
       'bottom' => t('Bottom'),
     ),
   );
 
-  $form['adblocker'] = array(
+  $form['blizz_vanisher_adblocker'] = array(
     '#type' => 'checkbox',
     '#title' => t('Ad-Blocker'),
     '#description' => t('Display a message if an adblocker is detected.'),
-    '#default_value' => variable_get('adblocker', FALSE) ? TRUE : FALSE,
+    '#default_value' => variable_get('blizz_vanisher_adblocker', FALSE) ? TRUE : FALSE,
   );
 
-  $form['show_alert_small'] = array(
+  $form['blizz_vanisher_show_alert_small'] = array(
     '#type' => 'checkbox',
     '#title' => t('Show Alert Small'),
     '#description' => t('Show the small banner on bottom right?'),
-    '#default_value' => variable_get('show_alert_small', FALSE) ? TRUE : FALSE,
+    '#default_value' => variable_get('blizz_vanisher_show_alert_small', FALSE) ? TRUE : FALSE,
   );
 
-  $form['cookieslist'] = array(
+  $form['blizz_vanisher_cookieslist'] = array(
     '#type' => 'checkbox',
     '#title' => t('Cookies List'),
     '#description' => t('Display the list of cookies installed?'),
-    '#default_value' => variable_get('cookieslist', FALSE) ? TRUE : FALSE,
+    '#default_value' => variable_get('blizz_vanisher_cookieslist', FALSE) ? TRUE : FALSE,
   );
 
-  $form['remove_credit'] = array(
+  $form['blizz_vanisher_remove_credit'] = array(
     '#type' => 'checkbox',
     '#title' => t('Remove Credit'),
     '#description' => t('Remove the credit link?'),
-    '#default_value' => variable_get('remove_credit', FALSE) ? TRUE : FALSE,
+    '#default_value' => variable_get('blizz_vanisher_remove_credit', FALSE) ? TRUE : FALSE,
   );
 
-  $form['default_rejected'] = [
+  $form['blizz_vanisher_default_rejected'] = [
     '#type' => 'checkbox',
     '#title' => t('Default Rejected'),
     '#description' => t('Should all services be rejected by default?'),
-    '#default_value' => variable_get('default_rejected', FALSE) ? TRUE : FALSE,
+    '#default_value' => variable_get('blizz_vanisher_default_rejected', FALSE) ? TRUE : FALSE,
   ];
 
   return system_settings_form($form);

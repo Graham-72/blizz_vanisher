@@ -81,3 +81,26 @@ function blizz_vanisher_schema() {
 function blizz_vanisher_uninstall() {
   drupal_uninstall_schema('blizz_vanisher');
 }
+
+/**
+ * Updates the names of the settings variables.
+ */
+function blizz_vanisher_update_7001() {
+  foreach (
+    [
+      'hashtag',
+      'high_privacy',
+      'orientation',
+      'adblocker',
+      'show_alert_small',
+      'cookieslist',
+      'remove_credit',
+      'default_rejected',
+    ] as $variable
+  ) {
+    if ($value = variable_get($variable)) {
+      variable_set("blizz_vanisher_{$variable}", $value);
+      variable_del($variable);
+    }
+  }
+}
