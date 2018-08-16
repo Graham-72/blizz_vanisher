@@ -1,13 +1,13 @@
 <?php
 
-namespace Drupal\blizz_vanisher\Service;
+namespace Backdrop\blizz_vanisher\Service;
 
-use Drupal\blizz_vanisher\Entity\ThirdPartyServiceEntityInterface;
+use Backdrop\blizz_vanisher\Entity\ThirdPartyServiceEntityInterface;
 
 /**
  * Class IframeVanisher.
  *
- * @package Drupal\blizz_vanisher\Service
+ * @package Backdrop\blizz_vanisher\Service
  */
 abstract class IframeVanisher implements ThirdPartyServicesVanisherInterface, IframeVanisherInterface {
 
@@ -21,14 +21,14 @@ abstract class IframeVanisher implements ThirdPartyServicesVanisherInterface, If
   /**
    * The third party services vanisher.
    *
-   * @var \Drupal\blizz_vanisher\Service\ThirdPartyServicesVanisher
+   * @var \Backdrop\blizz_vanisher\Service\ThirdPartyServicesVanisher
    */
   protected $vanisher;
 
   /**
    * EmbeddedVideoVanisher constructor.
    *
-   * @param \Drupal\blizz_vanisher\Service\ThirdPartyServicesVanisher $vanisher
+   * @param \Backdrop\blizz_vanisher\Service\ThirdPartyServicesVanisher $vanisher
    *   The third party services vanisher.
    */
   public function __construct(ThirdPartyServicesVanisher $vanisher) {
@@ -162,7 +162,7 @@ EOF;
    *
    * @param array $data
    *   The array containing the iframe data.
-   * @param \Drupal\blizz_vanisher\Entity\ThirdPartyServiceEntityInterface $entity
+   * @param \Backdrop\blizz_vanisher\Entity\ThirdPartyServiceEntityInterface $entity
    *   The third party service entity.
    *
    * @return string
@@ -197,7 +197,7 @@ EOF;
   /**
    * Sets the current third party services entity.
    *
-   * @param \Drupal\blizz_vanisher\Entity\ThirdPartyServiceEntityInterface $entity
+   * @param \Backdrop\blizz_vanisher\Entity\ThirdPartyServiceEntityInterface $entity
    *   The current third party services entity.
    */
   public function setEntity(ThirdPartyServiceEntityInterface $entity) {

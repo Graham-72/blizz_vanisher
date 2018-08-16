@@ -1,11 +1,11 @@
 <?php
 
-namespace Drupal\blizz_vanisher\Service;
+namespace Backdrop\blizz_vanisher\Service;
 
 /**
  * Class GoogleDoubleClickVanisher.
  *
- * @package Drupal\blizz_vanisher\Service
+ * @package Backdrop\blizz_vanisher\Service
  */
 class GoogleDoubleClickVanisher extends ThirdPartyServicesVanisher implements ThirdPartyServicesVanisherInterface {
 

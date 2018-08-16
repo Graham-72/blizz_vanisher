@@ -1,11 +1,11 @@
 <?php
 
-namespace Drupal\blizz_vanisher\Service;
+namespace Backdrop\blizz_vanisher\Service;
 
 /**
  * Interface ThirdPartyServicesVanisherInterface.
  *
- * @package Drupal\blizz_vanisher\Service
+ * @package Backdrop\blizz_vanisher\Service
  */
 interface ThirdPartyServicesVanisherInterface {
 

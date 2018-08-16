@@ -1,12 +1,12 @@
 <?php
 
-namespace Drupal\blizz_vanisher\Entity;
+namespace Backdrop\blizz_vanisher\Entity;
 
 
 /**
  * Interface ThirdPartyServiceEntityInterface.
  *
- * @package Drupal\blizz_vanisher\Entity
+ * @package Backdrop\blizz_vanisher\Entity
  */
 interface ThirdPartyServiceEntityInterface {
 
@@ -16,7 +16,7 @@ interface ThirdPartyServiceEntityInterface {
    * @return string
    *   The entity id.
    */
-  public function getId();
+  public function id();
 
   /**
    * Returns the label.
@@ -24,7 +24,7 @@ interface ThirdPartyServiceEntityInterface {
    * @return string
    *   The label.
    */
-  public function getLabel();
+  public function label();
 
   /**
    * Returns the name.

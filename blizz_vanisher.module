@@ -8,18 +8,18 @@ function blizz_vanisher_init() {
 
   require_once("src/BlizzFactory.php");
 
-  drupal_add_library('blizz_vanisher', 'blizz-vanisher');
+  backdrop_add_library('blizz_vanisher', 'blizz-vanisher');
 
-  drupal_add_js(array(
+  backdrop_add_js(array(
     'blizz_vanisher' => array(
-      'hashtag' => variable_get('blizz_vanisher_hashtag'),
-      'highPrivacy' => variable_get('blizz_vanisher_high_privacy') === 1,
-      'orientation' => variable_get('blizz_vanisher_orientation'),
-      'adblocker' => variable_get('blizz_vanisher_adblocker') === 1,
-      'showAlertSmall' => variable_get('blizz_vanisher_show_alert_small') === 1,
-      'cookieslist' => variable_get('blizz_vanisher_cookieslist') === 1,
-      'removeCredit' => variable_get('blizz_vanisher_remove_credit') === 1,
-      'defaultRejected' => variable_get('blizz_vanisher_default_rejected') === 1,
+      'hashtag' => config_get('blizz_vanisher.settings','blizz_vanisher_hashtag'),
+      'highPrivacy' => config_get('blizz_vanisher.settings','blizz_vanisher_high_privacy'),
+      'orientation' => config_get('blizz_vanisher.settings','blizz_vanisher_orientation'),
+      'adblocker' => config_get('blizz_vanisher.settings','blizz_vanisher_adblocker'),
+      'showAlertSmall' => config_get('blizz_vanisher.settings','blizz_vanisher_show_alert_small'),
+      'cookieslist' => config_get('blizz_vanisher.settings','blizz_vanisher_cookieslist'),
+      'removeCredit' => config_get('blizz_vanisher.settings','blizz_vanisher_remove_credit'),
+      'defaultRejected' => config_get('blizz_vanisher.settings','blizz_vanisher_default_rejected'),
     ),
   ), 'setting');
 
@@ -34,14 +34,14 @@ function blizz_vanisher_exit() {
   // after all.
   // Make sure to exclude image style images (is this even required anymore??).
   // Make sure the buffer has a length.
-  if (stripos(drupal_get_http_header('content-type'), 'text/html') !== FALSE && !is_file($current_path) && ob_get_length()) {
+  if (stripos(backdrop_get_http_header('content-type'), 'text/html') !== FALSE && !is_file($current_path) && ob_get_length()) {
 
     // Catch the output buffer. Converted from ob_get_clean().
     $page = ob_get_contents();
 
     // If the content should be encoded, try to decode it.
     $decoded = FALSE;
-    if (variable_get('page_compression', TRUE) && extension_loaded('zlib')) {
+    if (config_get('blizz_vanisher.settings','blizz_vanisher_page_compression') && extension_loaded('zlib')) {
       $decoded = @gzinflate(substr(substr($page, 10), 0, -8));
       if ($decoded) {
         $page = $decoded;
@@ -56,7 +56,7 @@ function blizz_vanisher_exit() {
 
     // If the content was decoded before being minified, it needs to be
     // re-encoded.
-    if (variable_get('page_compression', TRUE) && extension_loaded('zlib') && $decoded) {
+    if (config_get('blizz_vanisher.settings','blizz_vanisher_page_compression') && extension_loaded('zlib') && $decoded) {
       $page = gzencode($page, 9, FORCE_GZIP);
     }
 
@@ -88,22 +88,22 @@ function blizz_vanisher_library() {
     'title' => 'Blizz Vanisher',
     'version' => '1.0',
     'js' => array(
-      drupal_get_path('module', 'blizz_vanisher') . '/js/tarteaucitron/tarteaucitron.js' => array(
+      backdrop_get_path('module', 'blizz_vanisher') . '/js/tarteaucitron/tarteaucitron.js' => array(
         'type' => 'file',
         'scope' => 'footer',
         'weight' => -4,
       ),
-      drupal_get_path('module', 'blizz_vanisher') . '/js/init_tarteaucitron.js' => array(
+      backdrop_get_path('module', 'blizz_vanisher') . '/js/init_tarteaucitron.js' => array(
         'type' => 'file',
         'scope' => 'footer',
         'weight' => -3,
       ),
-      drupal_get_path('module', 'blizz_vanisher') . '/js/tarteaucitron/tarteaucitron.services.js' => array(
+      backdrop_get_path('module', 'blizz_vanisher') . '/js/tarteaucitron/tarteaucitron.services.js' => array(
         'type' => 'file',
         'scope' => 'footer',
         'weight' => -2,
       ),
-      drupal_get_path('module', 'blizz_vanisher') . '/js/extended_services.js' => array(
+      backdrop_get_path('module', 'blizz_vanisher') . '/js/extended_services.js' => array(
         'type' => 'file',
         'scope' => 'footer',
         'weight' => -1,
@@ -111,6 +111,7 @@ function blizz_vanisher_library() {
     ),
 
   );
+  dpm($libraries,'LIBRARIES 114');
   return $libraries;
 }
 
@@ -150,7 +151,7 @@ function blizz_vanisher_menu() {
       'type' => MENU_LOCAL_TASK | MENU_NORMAL_ITEM,
       'title' => t('BLIZZ Vanisher Settings'),
       'description' => 'Configure the BLIZZ Vanisher',
-      'page callback' => 'drupal_get_form',
+      'page callback' => 'backdrop_get_form',
       'page arguments' => array('blizz_vanisher_settings_page'),
       'access arguments' => array('administer blizz vanisher'),
     ),
@@ -158,7 +159,7 @@ function blizz_vanisher_menu() {
     'admin/config/system/blizz-vanisher/third-party-service/%third_party_service/delete' => array(
       'title' => 'Delete',
       'type' => MENU_NORMAL_ITEM,
-      'page callback' => 'drupal_get_form',
+      'page callback' => 'backdrop_get_form',
       'page arguments' => array('third_party_service_form_delete_confirm', 5),
       'access arguments' => array('edit third_party_service entities'),
     ),
@@ -179,7 +180,7 @@ function blizz_vanisher_menu() {
     ),
     'admin/config/system/blizz-vanisher/third-party-service/%third_party_service' => array(
       'title' => 'Edit Third Party Service',
-      'page callback' => 'drupal_get_form',
+      'page callback' => 'backdrop_get_form',
       'page arguments' => array('third_party_service_form', 5),
       'type' => MENU_NORMAL_ITEM,
       'access arguments' => array('edit third_party_service entities'),
@@ -192,7 +193,7 @@ function blizz_vanisher_menu() {
  */
 function third_party_service_add() {
   $entity = entity_get_controller('third_party_service')->create();
-  return drupal_get_form('third_party_service_form', $entity);
+  return backdrop_get_form('third_party_service_form', $entity);
 }
 
 
@@ -280,9 +281,9 @@ function third_party_service_form_delete_confirm($form, &$form_state, $entity) {
 function third_party_service_form_delete_confirm_submit($form, &$form_state) {
   if ($form_state['values']['confirm']) {
     $entity = $form_state['values']['_third_party_service'];
-    drupal_set_message(t('Third Party Service ' . $entity->getName() . ' will get deleted.'));
+    backdrop_set_message(t('Third Party Service ' . $entity->getName() . ' will get deleted.'));
     third_party_service_delete(array($entity->id));
-    drupal_set_message(t('Third Party Service has been deleted successfully.'));
+    backdrop_set_message(t('Third Party Service has been deleted successfully.'));
   }
   $form_state['redirect'] = 'admin/config/system/blizz-vanisher/third-party-service';
 }
@@ -324,13 +325,13 @@ function third_party_service_form_submit($form, &$form_state) {
 
 
   if ($id) {
-    drupal_set_message(t('Saved the %label Third Party Service.', [
-      '%label' => $entity->getLabel(),
+    backdrop_set_message(t('Saved the %label Third Party Service.', [
+      '%label' => $entity->label(),
     ]));
   }
   else {
-    drupal_set_message(t('The %label Third Party Service was not saved.', [
-      '%label' => $entity->getLabel(),
+    backdrop_set_message(t('The %label Third Party Service was not saved.', [
+      '%label' => $entity->label(),
     ]));
   }
 
@@ -439,21 +440,21 @@ function blizz_vanisher_settings_page() {
     '#type' => 'textfield',
     '#title' => t('Hashtag'),
     '#description' => t('Automatically open the panel with the hashtag.'),
-    '#default_value' => variable_get('blizz_vanisher_hashtag', ''),
+    '#default_value' => config_get('blizz_vanisher.settings','blizz_vanisher_hashtag'),
   );
 
   $form['blizz_vanisher_high_privacy'] = array(
     '#type' => 'checkbox',
     '#title' => t('High Privacy'),
     '#description' => t('Disabling the auto consent feature on navigation?'),
-    '#default_value' => variable_get('blizz_vanisher_high_privacy', FALSE) ? TRUE : FALSE,
+    '#default_value' => config_get('blizz_vanisher.settings','blizz_vanisher_high_privacy') ? TRUE : FALSE,
   );
 
   $form['blizz_vanisher_orientation'] = array(
     '#type' => 'radios',
     '#title' => t('Orientation'),
     '#description' => t('The orientation of the big banner.'),
-    '#default_value' => variable_get('blizz_vanisher_orientation', 'top'),
+    '#default_value' => config_get('blizz_vanisher.settings','blizz_vanisher_orientation'),
     '#options' => array(
       'top' => t('Top'),
       'bottom' => t('Bottom'),
@@ -464,38 +465,61 @@ function blizz_vanisher_settings_page() {
     '#type' => 'checkbox',
     '#title' => t('Ad-Blocker'),
     '#description' => t('Display a message if an adblocker is detected.'),
-    '#default_value' => variable_get('blizz_vanisher_adblocker', FALSE) ? TRUE : FALSE,
+    '#default_value' => config_get('blizz_vanisher.settings','blizz_vanisher_adblocker') ? TRUE : FALSE,
   );
 
   $form['blizz_vanisher_show_alert_small'] = array(
     '#type' => 'checkbox',
     '#title' => t('Show Alert Small'),
     '#description' => t('Show the small banner on bottom right?'),
-    '#default_value' => variable_get('blizz_vanisher_show_alert_small', FALSE) ? TRUE : FALSE,
+    '#default_value' => config_get('blizz_vanisher.settings','blizz_vanisher_show_alert_small') ? TRUE : FALSE,
   );
 
   $form['blizz_vanisher_cookieslist'] = array(
     '#type' => 'checkbox',
     '#title' => t('Cookies List'),
     '#description' => t('Display the list of cookies installed?'),
-    '#default_value' => variable_get('blizz_vanisher_cookieslist', FALSE) ? TRUE : FALSE,
+    '#default_value' => config_get('blizz_vanisher.settings','blizz_vanisher_cookieslist') ? TRUE : FALSE,
   );
 
   $form['blizz_vanisher_remove_credit'] = array(
     '#type' => 'checkbox',
     '#title' => t('Remove Credit'),
     '#description' => t('Remove the credit link?'),
-    '#default_value' => variable_get('blizz_vanisher_remove_credit', FALSE) ? TRUE : FALSE,
+    '#default_value' => config_get('blizz_vanisher.settings','blizz_vanisher_remove_credit') ? TRUE : FALSE,
   );
 
   $form['blizz_vanisher_default_rejected'] = [
     '#type' => 'checkbox',
     '#title' => t('Default Rejected'),
     '#description' => t('Should all services be rejected by default?'),
-    '#default_value' => variable_get('blizz_vanisher_default_rejected', FALSE) ? TRUE : FALSE,
+    '#default_value' => config_get('blizz_vanisher.settings','blizz_vanisher_default_rejected') ? TRUE : FALSE,
   ];
 
-  return system_settings_form($form);
+  // Add a submit button
+  $form['actions']['#type'] = 'actions';
+  $form['actions']['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Save configuration'),
+  );
+
+  return $form;
+}
+
+/**
+ * Submit handler for module_settings_form().
+ */
+function blizz_vanisher_settings_page_submit($form, &$form_state) {
+  $config = config('blizz_vanisher.settings');
+  $config->set('blizz_vanisher_hashtag', $form_state['values']['blizz_vanisher_hashtag']);
+  $config->set('blizz_vanisher_high_privacy', $form_state['values']['blizz_vanisher_high_privacy']);
+  $config->set('blizz_vanisher_orientation', $form_state['values']['blizz_vanisher_orientation']);
+  $config->set('blizz_vanisher_adblocker', $form_state['values']['blizz_vanisher_adblocker']);
+  $config->set('blizz_vanisher_show_alert_small', $form_state['values']['blizz_vanisher_show_alert_small']);
+  $config->set('blizz_vanisher_cookieslist', $form_state['values']['blizz_vanisher_cookieslist']);
+  $config->set('blizz_vanisher_remove_credit', $form_state['values']['blizz_vanisher_remove_credit']);
+  $config->set('blizz_vanisher_default_rejected', $form_state['values']['blizz_vanisher_default_rejected']);
+  $config->save();
 }
 
 
@@ -508,7 +532,7 @@ function blizz_vanisher_entity_info() {
       'label' => t('Third Party Service Entity'),
       'plural label' => t('Third Party Service Entities'),
       'entity class' => 'ThirdPartyServiceEntity',
-      'controller class' => 'EntityAPIControllerExportable',
+      'controller class' => 'EntityPlusControllerExportable',
       'base table' => 'third_party_service',
       'entity keys' => array(
         'id' => 'id',
@@ -537,7 +561,7 @@ function blizz_vanisher_default_third_party_service() {
  * Implements hook_js_alter().
  */
 function blizz_vanisher_js_alter(&$js) {
-  $base = drupal_get_path('module', 'blizz_vanisher');
+  $base = backdrop_get_path('module', 'blizz_vanisher');
   foreach ($js as $path => &$values) {
 
     if (
@@ -549,4 +573,27 @@ function blizz_vanisher_js_alter(&$js) {
       $values['preprocess'] = FALSE;
     }
   }
+}
+
+
+/**
+ * Implements hook_config_info().
+ */
+function blizz_vanisher_config_info() {
+  $prefixes['blizz_vanisher.settings'] = array(
+    'label' => t('Blizz Vanisher settings'),
+    'group' => t('Configuration'),
+  );
+  return $prefixes;
+}
+
+
+/**
+ * Implements hook_autoload_info().
+ */
+function blizz_vanisher_autoload_info() {
+  return array(
+    'BlizzFactory' => 'src/Service/BlizzFactory.php',
+    'ThirdPartyServiceEntity' => 'src/Entity/ThirdPartyServiceEntity.php',
+  );
 }

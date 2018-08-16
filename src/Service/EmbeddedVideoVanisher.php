@@ -1,13 +1,13 @@
 <?php
 
-namespace Drupal\blizz_vanisher\Service;
+namespace Backdrop\blizz_vanisher\Service;
 
-use Drupal\blizz_vanisher\Entity\ThirdPartyServiceEntityInterface;
+use Backdrop\blizz_vanisher\Entity\ThirdPartyServiceEntityInterface;
 
 /**
  * Class EmbeddedVideoVanisher.
  *
- * @package Drupal\blizz_vanisher\Service
+ * @package Backdrop\blizz_vanisher\Service
  */
 abstract class EmbeddedVideoVanisher extends IframeVanisher implements IframeVanisherInterface {
 

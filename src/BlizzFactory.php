@@ -26,17 +26,17 @@ class BlizzFactory {
       require_once('Service/YoutubeVanisher.php');
 
 
-      $vanisher = new \Drupal\blizz_vanisher\Service\ThirdPartyServicesVanisher();
+      $vanisher = new \Backdrop\blizz_vanisher\Service\ThirdPartyServicesVanisher();
 
-      $vanisher->add(new \Drupal\blizz_vanisher\Service\VimeoVanisher($vanisher));
-      $vanisher->add(new \Drupal\blizz_vanisher\Service\YoutubeVanisher($vanisher));
-      $vanisher->add(new \Drupal\blizz_vanisher\Service\GoogleAnalyticsVanisher());
-      $vanisher->add(new \Drupal\blizz_vanisher\Service\GoogleTagManagerVanisher());
-      $vanisher->add(new \Drupal\blizz_vanisher\Service\HotjarVanisher());
-      $vanisher->add(new \Drupal\blizz_vanisher\Service\GoogleDoubleClickVanisher());
-      $vanisher->add(new \Drupal\blizz_vanisher\Service\TwitterTimelineVanisher());
-      $vanisher->add(new \Drupal\blizz_vanisher\Service\MatomoVanisher());
-      $vanisher->add(new \Drupal\blizz_vanisher\Service\GoogleMapsVanisher($vanisher));
+      $vanisher->add(new \Backdrop\blizz_vanisher\Service\VimeoVanisher($vanisher));
+      $vanisher->add(new \Backdrop\blizz_vanisher\Service\YoutubeVanisher($vanisher));
+      $vanisher->add(new \Backdrop\blizz_vanisher\Service\GoogleAnalyticsVanisher());
+      $vanisher->add(new \Backdrop\blizz_vanisher\Service\GoogleTagManagerVanisher());
+      $vanisher->add(new \Backdrop\blizz_vanisher\Service\HotjarVanisher());
+      $vanisher->add(new \Backdrop\blizz_vanisher\Service\GoogleDoubleClickVanisher());
+      $vanisher->add(new \Backdrop\blizz_vanisher\Service\TwitterTimelineVanisher());
+      $vanisher->add(new \Backdrop\blizz_vanisher\Service\MatomoVanisher());
+      $vanisher->add(new \Backdrop\blizz_vanisher\Service\GoogleMapsVanisher($vanisher));
 
       BlizzFactory::$thirdpartyservices = $vanisher;
     }

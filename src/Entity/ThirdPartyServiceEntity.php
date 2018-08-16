@@ -1,6 +1,6 @@
 <?php
 
-class ThirdPartyServiceEntity extends \Entity implements \Drupal\blizz_vanisher\Entity\ThirdPartyServiceEntityInterface {
+class ThirdPartyServiceEntity extends \Entity implements \Backdrop\blizz_vanisher\Entity\ThirdPartyServiceEntityInterface {
 
   /**
    * {@inheritdoc}
@@ -16,13 +16,50 @@ class ThirdPartyServiceEntity extends \Entity implements \Drupal\blizz_vanisher\
     return $this->vanisher;
   }
 
-  public function getId() {
+  /**
+   * Implements EntityInterface::id().
+   */
+  public function id() {
     return $this->id;
   }
 
-  public function isNew() {
-    return $this->id;
+  /**
+   * Implements EntityInterface::entityType().
+   */
+  public function entityType() {
+    return 'ThirdPartyService';
   }
+
+  /**
+   * Implements EntityInterface::label().
+   */
+  public function label() {
+    return $this->label;
+  }
+
+  /**
+   * Implements EntityInterface::isNew().
+   */
+  public function isNew() {
+    return !empty($this->is_new) || !$this->id();
+  }
+
+  /**
+   * Implements EntityInterface::uri().
+   */
+  public function uri() {
+    // Anonymous users do not have a URI.
+    $uri = FALSE;
+    if ($this->uid) {
+      $uri = array(
+        'path' => 'user/' . $this->uid,
+        'options' => array(),
+      );
+    }
+    return $uri;
+  }
+
+
   public function getName(){
     return $this->name;
   }
@@ -31,7 +68,4 @@ class ThirdPartyServiceEntity extends \Entity implements \Drupal\blizz_vanisher\
     return $this->info;
   }
 
-  public function getLabel() {
-    return $this->label();
-  }
 }

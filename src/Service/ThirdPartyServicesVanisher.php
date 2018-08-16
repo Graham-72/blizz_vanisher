@@ -1,13 +1,13 @@
 <?php
 
-namespace Drupal\blizz_vanisher\Service;
+namespace Backdrop\blizz_vanisher\Service;
 
-use Drupal\blizz_vanisher\Entity\ThirdPartyServiceEntityInterface;
+use Backdrop\blizz_vanisher\Entity\ThirdPartyServiceEntityInterface;
 
 /**
  * Class ThirdPartyServicesVanisher.
  *
- * @package Drupal\blizz_vanisher\Service
+ * @package Backdrop\blizz_vanisher\Service
  */
 class ThirdPartyServicesVanisher {
 
@@ -16,14 +16,14 @@ class ThirdPartyServicesVanisher {
   /**
    * The registered third party services vanisher.
    *
-   * @var \Drupal\blizz_vanisher\Service\ThirdPartyServicesVanisherInterface[]
+   * @var \Backdrop\blizz_vanisher\Service\ThirdPartyServicesVanisherInterface[]
    */
   protected $vanisher;
 
   /**
    * The current third party services entity.
    *
-   * @var \Drupal\blizz_vanisher\Entity\ThirdPartyServiceEntityInterface
+   * @var \Backdrop\blizz_vanisher\Entity\ThirdPartyServiceEntityInterface
    */
   protected $entity;
 
@@ -58,7 +58,7 @@ class ThirdPartyServicesVanisher {
       }
 
       $vanisher_name = $service->getVanisher();
-      $vanisher_id = $vanisher_name . '.' . $service->getId();
+      $vanisher_id = $vanisher_name . '.' . $service->id();
 
       // The vanished script.
       $vanisher = $this->getVanisher($vanisher_name);
@@ -83,7 +83,7 @@ class ThirdPartyServicesVanisher {
   /**
    * Adds a new third party service vanisher to the list of registered vanisher.
    *
-   * @param \Drupal\blizz_vanisher\Service\ThirdPartyServicesVanisherInterface $vanisher
+   * @param \Backdrop\blizz_vanisher\Service\ThirdPartyServicesVanisherInterface $vanisher
    *   The third party service vanisher to add.
    */
   public function add(ThirdPartyServicesVanisherInterface $vanisher) {
@@ -93,7 +93,7 @@ class ThirdPartyServicesVanisher {
   /**
    * Returns all installed vanisher.
    *
-   * @return \Drupal\blizz_vanisher\Service\ThirdPartyServicesVanisherInterface[]
+   * @return \Backdrop\blizz_vanisher\Service\ThirdPartyServicesVanisherInterface[]
    *   An array of installed vanisher.
    */
   public function getInstalled() {
@@ -104,7 +104,7 @@ class ThirdPartyServicesVanisher {
   /**
    * Returns all installed vanisher.
    *
-   * @return \Drupal\blizz_vanisher\Service\ThirdPartyServicesVanisherInterface[]
+   * @return \Backdrop\blizz_vanisher\Service\ThirdPartyServicesVanisherInterface[]
    *   An array of installed vanisher.
    */
   public function getInstalledVanisherNames() {
@@ -253,7 +253,7 @@ class ThirdPartyServicesVanisher {
    * @param string $vanisher_name
    *   The vanisher name.
    *
-   * @return \Drupal\blizz_vanisher\Service\ThirdPartyServicesVanisher|null
+   * @return \Backdrop\blizz_vanisher\Service\ThirdPartyServicesVanisher|null
    *   The installed vanisher or NULL.
    */
   public function getVanisher($vanisher_name) {
@@ -263,7 +263,7 @@ class ThirdPartyServicesVanisher {
   /**
    * Sets the current third party services entity.
    *
-   * @param \Drupal\blizz_vanisher\Entity\ThirdPartyServiceEntityInterface $entity
+   * @param \Backdrop\blizz_vanisher\Entity\ThirdPartyServiceEntityInterface $entity
    *   The current third party services entity.
    */
   public function setEntity(ThirdPartyServiceEntityInterface $entity) {
@@ -273,7 +273,7 @@ class ThirdPartyServicesVanisher {
   /**
    * Returns entity.
    *
-   * @return \Drupal\blizz_vanisher\Entity\ThirdPartyServiceEntityInterface
+   * @return \Backdrop\blizz_vanisher\Entity\ThirdPartyServiceEntityInterface
    *   The current third party services entity.
    */
   public function getEntity() {

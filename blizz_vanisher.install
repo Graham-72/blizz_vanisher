@@ -79,28 +79,39 @@ function blizz_vanisher_schema() {
  * Implements hook_uninstall().
  */
 function blizz_vanisher_uninstall() {
-  drupal_uninstall_schema('blizz_vanisher');
+  backdrop_uninstall_schema('blizz_vanisher');
 }
 
+
+function blizz_vanisher_update_1000() {
+  $config = config('blizz_vanisher.settings');
+
+  // migrate variables
+  $config->set('blizz_vanisher_hashtag', update_variable_get('blizz_vanisher_hashtag'));
+  $config->set('blizz_vanisher_high_privacy', update_variable_get('blizz_vanisher_high_privacy'));
+  $config->set('blizz_vanisher_orientation', update_variable_get('blizz_vanisher_orientation'));
+  $config->set('blizz_vanisher_adblocker', update_variable_get('blizz_vanisher_adblocker'));
+  $config->set('blizz_vanisher_show_alert_small', update_variable_get('blizz_vanisher_show_alert_small'));
+  $config->set('blizz_vanisher_cookieslist', update_variable_get('blizz_vanisher_cookieslist'));
+  $config->set('blizz_vanisher_remove_credit', update_variable_get('blizz_vanisher_remove_credit'));
+  $config->set('blizz_vanisher_default_rejected', update_variable_get('blizz_vanisher_default_rejected'));
+  $config->save();
+
+  // Delete variables.
+  update_variable_del('blizz_vanisher_hashtag');
+  update_variable_del('blizz_vanisher_high_privacy');
+  update_variable_del('blizz_vanisher_orientation');
+  update_variable_del('blizz_vanisher_adblocker');
+  update_variable_del('blizz_vanisher_show_alert_small');
+  update_variable_del('blizz_vanisher_cookieslist');
+  update_variable_del('blizz_vanisher_remove_credit');
+  update_variable_del('blizz_vanisher_default_rejected');
+}
+
+
 /**
- * Updates the names of the settings variables.
+ * Implements hook_update_last_removed().
  */
-function blizz_vanisher_update_7001() {
-  foreach (
-    array(
-      'hashtag',
-      'high_privacy',
-      'orientation',
-      'adblocker',
-      'show_alert_small',
-      'cookieslist',
-      'remove_credit',
-      'default_rejected',
-    ) as $variable
-  ) {
-    if ($value = variable_get($variable)) {
-      variable_set("blizz_vanisher_{$variable}", $value);
-      variable_del($variable);
-    }
-  }
+function blizz_vanisher_update_last_removed() {
+  return 7001;
 }
